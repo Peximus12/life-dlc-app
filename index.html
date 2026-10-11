@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Life DLC</title>
+<link rel="manifest" href="manifest.webmanifest"><meta name="theme-color" content="#1a1c1b"><link rel="apple-touch-icon" href="icon-180.png">
+<meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="apple-mobile-web-app-title" content="Life DLC">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+:root{--bg:#1a1c1b;--s1:#222524;--s2:#2b2f2d;--bd:#3a3f3c;--tx:#e7e4da;--mu:#9b9e96;--moss:#86a05f;--moss2:#55683e;--amb:#d6a54e;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);color-scheme:dark}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*,*:before,*:after{box-sizing:inherit}
+body{margin:0;background:var(--bg);color:var(--tx);font:14px/1.45 "IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;font-variant-numeric:tabular-nums}
+h1,h2,h3,p{margin:0}button,input,select,textarea{font:inherit;color:inherit}button{cursor:pointer}
+button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px solid var(--moss);outline-offset:1px}
+#app{display:grid;grid-template-columns:190px minmax(0,1fr)}
+.side{position:sticky;top:env(safe-area-inset-top,0px);height:100vh;border-right:1px solid var(--bd);padding:16px 10px;display:flex;flex-direction:column;gap:2px}
+.brand{font-weight:600;font-size:15px;margin:0 8px 18px}.brand i{display:inline-block;width:8px;height:8px;background:var(--moss);transform:rotate(45deg);margin-right:9px}
+.nav button{display:block;width:100%;text-align:left;background:none;border:0;border-radius:4px;padding:7px 8px;color:var(--mu)}
+.nav button.on{background:var(--s2);color:var(--tx)}
+#lv{margin-top:auto;padding:8px}
+main{padding:22px 26px 48px;max-width:1080px}
+.sub{color:var(--mu);font-size:12.5px}.xp{color:var(--moss);white-space:nowrap}.amb{color:var(--amb)}
+h1{font-size:23px;font-weight:600;margin:2px 0 12px}h2{font-size:16px;font-weight:600}h3{font-size:15px;font-weight:600;margin-bottom:6px}
+.sh{margin:26px 0 10px;font-size:14px;color:var(--mu);font-weight:500}
+.bar{height:6px;background:var(--s2);border-radius:3px;overflow:hidden}.bar div{height:100%;background:var(--moss);transition:width .4s}
+.hero{display:flex;gap:28px;justify-content:space-between;align-items:flex-end;flex-wrap:wrap}.hero>div:first-child{flex:1;min-width:260px}
+.hero .bar{margin-bottom:6px}.streak b{display:block;font-weight:500}
+.wk{display:flex;gap:4px;margin-top:6px}.wk i{width:14px;height:14px;border-radius:2px;background:var(--s2)}.wk i.on{background:var(--moss)}
+.trees{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:10px}
+.tcard{text-align:left;background:var(--s1);border:1px solid var(--bd);border-radius:6px;padding:12px;display:flex;flex-direction:column;gap:10px}
+.tcard:hover{border-color:var(--moss2)}.tcard.add{align-items:center;justify-content:center;color:var(--mu);border-style:dashed;min-height:84px}
+.dots{display:flex;gap:7px;flex-wrap:wrap}.dots i,.node i{display:block;flex:none;width:8px;height:8px;transform:rotate(45deg)}
+.dots .locked,.node.locked i{border:1px solid var(--mu)}.dots .available,.node.available i{background:var(--amb)}.dots .unlocked,.node.unlocked i{background:var(--moss)}
+.cols{display:grid;grid-template-columns:3fr 2fr;gap:24px}
+.q{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--bd)}.q .qm{flex:1;min-width:0}
+.q.done .qt{color:var(--mu);text-decoration:line-through}
+.chk{flex:none;width:18px;height:18px;border:1.5px solid var(--mu);border-radius:3px;background:none;padding:0}.chk:hover:not(:disabled){border-color:var(--moss)}
+.q.done .chk{background:var(--moss2);border-color:var(--moss2);position:relative;cursor:default}.q.done .chk:after{content:"";position:absolute;left:5px;top:1px;width:4px;height:9px;border:solid var(--tx);border-width:0 2px 2px 0;transform:rotate(45deg)}
+.acts{display:flex;gap:10px;flex-wrap:wrap}.lnk{background:none;border:0;padding:0;color:var(--mu);font-size:12.5px;text-decoration:underline}.lnk:hover{color:var(--tx)}
+.row{display:flex;gap:8px;justify-content:flex-end;margin-top:14px}
+.rowb{display:flex;width:100%;justify-content:space-between;background:none;border:0;border-bottom:1px solid var(--bd);padding:8px 0;text-align:left}
+.btn{background:var(--s2);border:1px solid var(--bd);border-radius:4px;padding:6px 12px}.btn:hover:not(:disabled){border-color:var(--mu)}
+.btn.pri{background:var(--moss2);border-color:var(--moss2)}.btn:disabled{opacity:.45;cursor:default}
+.tabs{display:flex;gap:4px;flex-wrap:wrap;border-bottom:1px solid var(--bd);margin-bottom:16px}
+.tab{background:none;border:0;border-bottom:2px solid transparent;padding:7px 10px;color:var(--mu);margin-bottom:-1px}.tab.on{color:var(--tx);border-color:var(--moss)}
+.head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap;margin-bottom:14px}
+.tv{display:grid;grid-template-columns:minmax(0,1fr) 270px;gap:16px;align-items:start}
+.canvas{overflow:auto;border:1px solid var(--bd);border-radius:6px;background:var(--s1);min-height:200px}
+.tree{position:relative;margin:22px}.tree svg{position:absolute;left:0;top:0}.tree path{fill:none;stroke:var(--bd);stroke-width:1.5}.tree path.on{stroke:var(--moss2)}.tree path.or{stroke-dasharray:5 4}
+.node{position:absolute;display:flex;align-items:center;gap:9px;padding:0 10px;text-align:left;background:var(--s2);border:1px solid var(--bd);border-radius:4px;font-size:12px;line-height:1.25}
+.node span{flex:1;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}.node b{font-weight:400;color:var(--mu);font-size:11px}
+.node.locked{border-style:dashed;color:var(--mu)}.node.available{border-color:var(--amb)}.node.unlocked{border-color:var(--moss2);background:#252d21}.node.sel{outline:2px solid var(--tx);outline-offset:2px}
+.panel{background:var(--s1);border:1px solid var(--bd);border-radius:6px;padding:14px}.panel>*+*{margin-top:10px}
+.st.locked{color:var(--mu)}.st.available{color:var(--amb)}.st.unlocked{color:var(--moss)}
+.kv{display:flex;gap:10px;justify-content:space-between}.kv>span{color:var(--mu)}.ok{color:var(--moss)}
+.ci{display:flex;justify-content:space-between;gap:8px;align-items:center;padding:5px 0;border-bottom:1px solid var(--bd)}.ci label{display:flex;gap:8px;align-items:center;flex:1;min-width:0;cursor:pointer}.ci.done label{color:var(--mu);text-decoration:line-through}.ci input{accent-color:var(--moss);width:16px;height:16px;flex:none}
+.add{display:flex;gap:6px;margin-top:8px}.add input{flex:1;min-width:0;background:var(--bg);border:1px solid var(--bd);border-radius:4px;padding:6px 8px;color:var(--tx)}
+.empty{padding:28px;text-align:center;color:var(--mu)}.empty .btn{margin-top:10px}
+dialog{background:var(--s1);color:var(--tx);border:1px solid var(--bd);border-radius:6px;padding:18px;width:min(420px,92vw)}dialog::backdrop{background:rgba(0,0,0,.6)}
+dialog label{display:block;margin-top:10px;color:var(--mu);font-size:12.5px}dialog .ck{display:flex;gap:8px;align-items:center;color:var(--tx);margin-top:4px}
+dialog input:not([type=checkbox]),dialog select,dialog textarea{display:block;width:100%;margin-top:4px;background:var(--bg);border:1px solid var(--bd);border-radius:4px;padding:6px 8px;color:var(--tx)}
+dialog fieldset{border:1px solid var(--bd);border-radius:4px;margin:12px 0 0;padding:4px 10px 8px;max-height:150px;overflow:auto}dialog legend{color:var(--mu);font-size:12.5px;padding:0 4px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:10px}.err{color:var(--amb);min-height:1em;margin-top:8px;font-size:12.5px}
+#toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,10px);background:var(--s2);border:1px solid var(--moss2);border-radius:4px;padding:8px 14px;opacity:0;pointer-events:none;transition:.25s;z-index:20}#toast.show{opacity:1;transform:translate(-50%,0)}
+@media(max-width:760px){#app{display:block}.side{position:fixed;top:auto;bottom:0;left:0;right:0;height:auto;flex-direction:row;border:0;border-top:1px solid var(--bd);background:var(--s1);padding:6px 6px calc(6px + env(safe-area-inset-bottom,0px));z-index:5}.brand,#lv{display:none}.nav{display:flex;width:100%;gap:4px}.nav button{text-align:center}
+main{padding:16px 14px 90px}.cols,.tv{grid-template-columns:1fr}#toast{bottom:80px}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style></head><body>
+<div id="app"><aside class="side"><div class="brand"><i></i>Life DLC</div>
+<div class="nav"><button data-a="nav" data-id="dash">Dashboard</button><button data-a="nav" data-id="trees">Skill trees</button><button data-a="nav" data-id="quests">Quests</button></div>
+<div id="lv"></div></aside><main id="main"></main></div>
+<input type="file" id="imp" accept=".json,application/json" hidden><dialog id="dlg"></dialog><div id="toast" role="status"></div>
+<script>
+const KEY='lifedlc.blank.v1',D=864e5,W=150,H=46,ANY=[];
+let S,view='dash',tid=null,nid=null,qf='active';
+const $=id=>document.getElementById(id),main=$('main'),dlg=$('dlg');
+const uid=()=>Math.random().toString(36).slice(2,9);
+const esc=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const ymd=d=>d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+const ago=t=>{const d=Math.floor((Date.now()-t)/D);return d<1?'today':d==1?'yesterday':d+' days ago'};
+
+/* ---- Progression: change the numbers here and everything follows ---- */
+const P={
+  need:L=>50*L*(L-1),                       // total XP needed to reach level L (L1=0, L2=100, L3=300...)
+  diff:{Easy:20,Medium:40,Hard:75,Expert:120}, // default XP per difficulty
+  level(xp){let L=1;while(xp>=P.need(L+1))L++;return L},
+  total(){  // XP is always derived from completed items, so it can never be awarded twice
+    let x=S.quests.filter(q=>q.done).reduce((a,q)=>a+q.xp,0);
+    S.trees.forEach(t=>t.nodes.forEach(n=>{if(n.done)x+=n.xp}));return x},
+  info(){const xp=P.total(),L=P.level(xp),a=P.need(L),b=P.need(L+1);return{xp,L,into:xp-a,span:b-a,pct:(xp-a)/(b-a)*100}}
+};
+
+/* ---- Data ---- */
+function seed(){return{trees:[],quests:[]}}
+function load(){try{const d=JSON.parse(localStorage.getItem(KEY));if(d&&Array.isArray(d.trees)&&Array.isArray(d.quests)){d.trees.forEach(t=>t.nodes.forEach(n=>{if(!n.mode)n.mode=ANY.includes(n.id)?'any':'all'}));return d}}catch(e){}return seed()}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
+function change(fn){const b=P.info().L,m=fn();save();render();const a=P.info().L;if(m||a>b)toast([m,a>b&&'Level '+a+' reached'].filter(Boolean).join(' · '))}
+const cur=()=>S.trees.find(t=>t.id===tid)||S.trees[0];
+const lookup=id=>{for(const t of S.trees){const n=t.nodes.find(x=>x.id===id);if(n)return{n,t}}return null};
+const nstate=(t,n)=>{if(n.done)return'unlocked';const ms=n.req.map(r=>t.nodes.find(x=>x.id===r)).filter(Boolean);return !ms.length||(n.mode==='any'?ms.some(m=>m.done):ms.every(m=>m.done))?'available':'locked'};
+function descend(t,id){const out=new Set(),walk=i=>t.nodes.forEach(n=>{if(n.req.includes(i)&&!out.has(n.id)){out.add(n.id);walk(n.id)}});walk(id);return out}
+let tm;function toast(m){const t=$('toast');t.textContent=m;t.classList.add('show');clearTimeout(tm);tm=setTimeout(()=>t.classList.remove('show'),2800)}
+
+/* ---- Modal helper: save() returns an error string to keep the dialog open ---- */
+function modal(title,body,save,label='Save'){
+  dlg.innerHTML=`<form method="dialog"><h3>${title}</h3>${body}<p class="err"></p><div class="row"><button type="button" class="btn" data-a="close">Cancel</button><button class="btn pri">${label}</button></div></form>`;
+  const f=dlg.querySelector('form');
+  f.onsubmit=e=>{e.preventDefault();const r=save(new FormData(f));if(r)dlg.querySelector('.err').textContent=r;else dlg.close()};
+  dlg.showModal();const i=dlg.querySelector('input:not([type=checkbox])');if(i&&i.type==='text')i.focus()}
+const ask=(msg,fn)=>modal('Are you sure?',`<p>${msg}</p>`,()=>{fn()},'Confirm');
+
+/* ---- Views ---- */
+function qrow(q,full){const f=q.nid&&lookup(q.nid),tr=S.trees.find(t=>t.id===q.tid),where=f?f.n.name:tr?tr.name:'';
+  const late=!q.done&&q.due&&q.due<ymd(new Date());
+  return `<div class="q${q.done?' done':''}"><button class="chk" data-a="qdone" data-id="${q.id}" ${q.done?'disabled':''} aria-label="Complete quest"></button>
+  <div class="qm"><div class="qt">${esc(q.title)}</div><div class="sub">${[where&&esc(where),q.diff,q.due&&`<span class="${late?'amb':''}">due ${q.due}</span>`].filter(Boolean).join(' · ')}</div>${full&&q.desc?`<div class="sub">${esc(q.desc)}</div>`:''}</div>
+  <span class="xp">${q.xp} XP</span>${full?`<span class="acts">${q.done?`<button class="lnk" data-a="qre" data-id="${q.id}">Reopen</button>`:''}<button class="lnk" data-a="qedit" data-id="${q.id}">Edit</button><button class="lnk" data-a="qdel" data-id="${q.id}">Delete</button></span>`:''}</div>`}
+const byDue=(a,b)=>(a.due||'9').localeCompare(b.due||'9');
+
+function dash(){
+  const i=P.info(),td=ymd(new Date()),A=S.quests.filter(q=>!q.done).sort(byDue),due=A.filter(q=>q.due&&q.due<=td),rest=A.filter(q=>!due.includes(q)).slice(0,5);
+  const days=new Set();S.quests.forEach(q=>q.at&&days.add(ymd(new Date(q.at))));S.trees.forEach(t=>t.nodes.forEach(n=>n.at&&days.add(ymd(new Date(n.at)))));
+  let st=0,d=new Date();if(!days.has(ymd(d)))d.setDate(d.getDate()-1);while(days.has(ymd(d))){st++;d.setDate(d.getDate()-1)}
+  const wk=[...Array(7)].map((_,k)=>{const x=new Date();x.setDate(x.getDate()-6+k);return `<i class="${days.has(ymd(x))?'on':''}" title="${ymd(x)}"></i>`}).join('');
+  const rec=S.trees.flatMap(t=>t.nodes.filter(n=>n.done).map(n=>({n,t}))).sort((a,b)=>(b.n.at||0)-(a.n.at||0)).slice(0,5);
+  return `<section class="hero"><div><div class="sub">Level ${i.L}</div><h1>Your next level starts here.</h1><div class="bar"><div style="width:${i.pct}%"></div></div>
+  <div class="sub"><span class="xp">${i.into} / ${i.span} XP</span> to level ${i.L+1} · ${i.xp} XP total</div></div>
+  <div class="streak"><b>${st?st+'-day streak':'No streak yet'}</b><span class="sub">Last 7 days</span><div class="wk">${wk}</div></div></section>
+  <h2 class="sh">Skill trees</h2><div class="trees">${S.trees.map(t=>`<button class="tcard" data-a="open" data-id="${t.id}"><b>${esc(t.name)}</b><div class="dots">${t.nodes.map(n=>`<i class="${nstate(t,n)}"></i>`).join('')}</div><span class="sub">${t.nodes.filter(n=>n.done).length}/${t.nodes.length} unlocked</span></button>`).join('')}<button class="tcard add" data-a="tnew">New tree</button></div>
+  <div class="cols"><div><h2 class="sh">Due today</h2>${due.map(q=>qrow(q)).join('')||'<p class="sub">Nothing due today.</p>'}
+  <h2 class="sh">Active quests</h2>${rest.map(q=>qrow(q)).join('')||'<p class="sub">No other active quests. <button class="lnk" data-a="qnew">Create one</button></p>'}</div>
+  <div><h2 class="sh">Recently unlocked</h2>${rec.map(({n,t})=>`<button class="rowb" data-a="gonode" data-id="${n.id}"><span>${esc(n.name)}<div class="sub">${esc(t.name)} · ${ago(n.at)}</div></span><span class="xp">+${n.xp}</span></button>`).join('')||'<p class="sub">Unlock your first skill from a tree.</p>'}</div></div>
+  <p class="sub" style="margin-top:34px">Saved in this browser only, with no account or sync. <button class="lnk" data-a="backup">Export backup</button> · <button class="lnk" data-a="restore">Import backup</button> · <button class="lnk" data-a="reset">Erase all data</button></p>`}
+
+function layout(t){const d={},go=(n,s)=>{if(n.id in d)return d[n.id];if(s.includes(n.id))return 0;let m=0;n.req.forEach(r=>{const p=t.nodes.find(x=>x.id===r);if(p)m=Math.max(m,go(p,[...s,n.id])+1)});return d[n.id]=m};
+  const cols=[];t.nodes.forEach(n=>{const k=go(n,[]);(cols[k]=cols[k]||[]).push(n)});
+  const R=Math.max(...cols.map(c=>c.length)),pos={};
+  cols.forEach((c,x)=>c.forEach((n,y)=>pos[n.id]={x:x*(W+56),y:(y+(R-c.length)/2)*(H+14)}));
+  return{pos,w:cols.length*(W+56)-56,h:R*(H+14)-14}}
+function treeHTML(t){const{pos,w,h}=layout(t);let p='';
+  t.nodes.forEach(n=>n.req.forEach(r=>{const a=pos[r],b=pos[n.id],pn=t.nodes.find(x=>x.id===r);if(!a||!b)return;const x1=a.x+W,y1=a.y+H/2,x2=b.x,y2=b.y+H/2,m=(x1+x2)/2;p+=`<path class="${pn.done?'on':''}${n.mode==='any'&&n.req.length>1?' or':''}" d="M${x1} ${y1}C${m} ${y1} ${m} ${y2} ${x2} ${y2}"/>`}));
+  return `<div class="canvas"><div class="tree" style="width:${w}px;height:${h}px"><svg width="${w}" height="${h}">${p}</svg>${t.nodes.map(n=>`<button class="node ${nstate(t,n)}${n.id===nid?' sel':''}" style="left:${pos[n.id].x}px;top:${pos[n.id].y}px;width:${W}px;height:${H}px" data-a="node" data-id="${n.id}"><i></i><span>${esc(n.name)}</span><b>${n.xp}</b></button>`).join('')}</div></div>`}
+function panel(t,n){const s=nstate(t,n),qs=S.quests.filter(q=>q.nid===n.id),rq=n.req.map(r=>t.nodes.find(x=>x.id===r)).filter(Boolean),blocked=n.done&&t.nodes.some(m=>m.done&&m.req.includes(n.id));
+  return `<div class="st ${s}">${s[0].toUpperCase()+s.slice(1)}</div><h3>${esc(n.name)}</h3><p>${esc(n.desc)||'<span class="sub">No description.</span>'}</p>
+  <div class="kv"><span>Reward</span><span class="xp">${n.xp} XP</span></div>
+  <div class="kv"><span>${rq.length>1&&n.mode==='any'?'Requires any one':'Requires'}</span><div style="text-align:right">${rq.map(r=>`<div class="${r.done?'ok':'sub'}">${r.done?'Done · ':'Open · '}${esc(r.name)}</div>`).join('')||'<span class="sub">Nothing, a starting skill</span>'}</div></div>
+  <div><div class="sub">Checklist${(n.items||[]).length?` · ${n.items.filter(i=>i.done).length}/${n.items.length} done`:''}</div>${(n.items||[]).map(i=>`<div class="ci${i.done?' done':''}"><label><input type="checkbox" data-a="ichk" data-id="${i.id}"${i.done?' checked':''}>${esc(i.text)}</label><button class="lnk" data-a="idel" data-id="${i.id}">Remove</button></div>`).join('')||'<p class="sub">Track the apps, projects or steps you finish for this skill.</p>'}<form class="add" data-f="item"><input name="t" maxlength="60" placeholder="Add an item, e.g. an app or project" aria-label="New checklist item"><button class="btn">Add</button></form></div>
+  <div><div class="sub">Related quests</div>${qs.map(q=>qrow(q)).join('')||'<p class="sub">None yet.</p>'}<button class="lnk" data-a="qnew" data-nid="${n.id}">Add quest</button></div>
+  <div class="acts">${n.done?`<button class="btn" data-a="ntoggle" data-id="${n.id}" ${blocked?'disabled':''}>Relock</button>`:`<button class="btn pri" data-a="ntoggle" data-id="${n.id}" ${s!=='available'?'disabled':''}>Mark unlocked</button>`}<button class="btn" data-a="nedit" data-id="${n.id}">Edit</button><button class="btn" data-a="ndel" data-id="${n.id}">Delete</button></div>
+  ${blocked?'<p class="sub">Relock the skills that depend on this one first.</p>':s==='locked'?`<p class="sub">Unlock ${n.mode==='any'&&rq.length>1?'one of the required skills':'the required skills'} first.</p>`:''}`}
+function treesV(){
+  if(!S.trees.length)return `<div class="empty"><p>No skill trees yet.</p><button class="btn pri" data-a="tnew">Create a tree</button></div>`;
+  const t=cur();tid=t.id;const dn=t.nodes.filter(n=>n.done),sel=t.nodes.find(n=>n.id===nid);
+  return `<div class="tabs">${S.trees.map(x=>`<button class="tab${x.id===t.id?' on':''}" data-a="tab" data-id="${x.id}">${esc(x.name)}</button>`).join('')}<button class="tab" data-a="tnew">+ New tree</button></div>
+  <div class="head"><div><h2>${esc(t.name)}</h2><div class="sub">${dn.length}/${t.nodes.length} unlocked · ${dn.reduce((a,n)=>a+n.xp,0)} XP earned</div></div><div class="acts"><button class="btn" data-a="nnew">Add skill</button><button class="btn" data-a="tren">Rename</button><button class="btn" data-a="tdel">Delete tree</button></div></div>
+  <div class="tv">${t.nodes.length?treeHTML(t):'<div class="canvas empty">This tree has no skills yet.<br><button class="btn pri" data-a="nnew">Add a skill</button></div>'}<aside class="panel">${sel?panel(t,sel):'<p class="sub">Select a skill to see its requirements, reward and quests.</p>'}</aside></div>`}
+function questsV(){
+  const f={active:q=>!q.done,done:q=>q.done,all:()=>true},c=k=>S.quests.filter(f[k]).length;
+  const list=S.quests.filter(f[qf]).sort((a,b)=>(a.done-b.done)||byDue(a,b));
+  return `<div class="head"><div class="tabs" style="margin:0;border:0">${['active','done','all'].map(k=>`<button class="tab${qf===k?' on':''}" data-a="qf" data-id="${k}">${k[0].toUpperCase()+k.slice(1)} (${c(k)})</button>`).join('')}</div><button class="btn pri" data-a="qnew">New quest</button></div>
+  ${list.map(q=>qrow(q,1)).join('')||`<div class="empty">${qf==='done'?'No completed quests yet.':'No quests here. Create one to start earning XP.'}</div>`}`}
+function render(){
+  document.querySelectorAll('.nav button').forEach(b=>b.classList.toggle('on',b.dataset.id===view));
+  const i=P.info();$('lv').innerHTML=`<div>Level ${i.L}</div><div class="bar" style="margin:6px 0"><div style="width:${i.pct}%"></div></div><div class="sub">${i.into} / ${i.span} XP</div>`;
+  main.innerHTML=({dash,trees:treesV,quests:questsV})[view]()}
+
+/* ---- Forms ---- */
+function nform(t,id){const n=id?t.nodes.find(x=>x.id===id):{name:'',desc:'',xp:30,req:[]},bad=id?descend(t,id):new Set(),c=t.nodes.filter(m=>m.id!==id&&!bad.has(m.id));
+  modal(id?'Edit skill':'New skill',`<label>Name<input name="name" maxlength="60" required value="${esc(n.name)}"></label><label>Description<textarea name="desc" rows="3" maxlength="400">${esc(n.desc)}</textarea></label><label>XP reward<input name="xp" type="number" min="1" max="1000" value="${n.xp}"></label>
+  <fieldset><legend>Prerequisites</legend><select name="mode" aria-label="Unlock rule" style="margin-bottom:6px"><option value="all"${n.mode!=='any'?' selected':''}>All must be done</option><option value="any"${n.mode==='any'?' selected':''}>Any one is enough</option></select>${c.map(m=>`<label class="ck"><input type="checkbox" name="req" value="${m.id}"${n.req.includes(m.id)?' checked':''}>${esc(m.name)}</label>`).join('')||'<span class="sub">No other skills in this tree yet.</span>'}</fieldset>`,
+  fd=>{const name=fd.get('name').trim(),xp=parseInt(fd.get('xp'),10);if(!name)return'Give the skill a name.';if(!(xp>=1&&xp<=1000))return'XP must be between 1 and 1000.';
+    change(()=>{const d={name,desc:fd.get('desc').trim(),xp,req:fd.getAll('req'),mode:fd.get('mode')==='any'?'any':'all'};if(id)Object.assign(n,d);else{nid=uid();t.nodes.push({id:nid,done:false,...d})}})})}
+function qform(id,pre={}){const q=S.quests.find(x=>x.id===id)||{diff:'Medium',xp:40,...pre},cv=q.nid?'n:'+q.nid:q.tid?'t:'+q.tid:'';
+  const opts='<option value="">No link</option>'+S.trees.map(t=>`<optgroup label="${esc(t.name)}"><option value="t:${t.id}"${cv==='t:'+t.id?' selected':''}>Whole tree</option>${t.nodes.map(n=>`<option value="n:${n.id}"${cv==='n:'+n.id?' selected':''}>${esc(n.name)}</option>`).join('')}</optgroup>`).join('');
+  modal(id?'Edit quest':'New quest',`<label>Title<input name="title" maxlength="80" required value="${esc(q.title||'')}"></label><label>Description<textarea name="desc" rows="2" maxlength="300">${esc(q.desc||'')}</textarea></label><label>Related skill tree or skill<select name="link">${opts}</select></label>
+  <div class="two"><label>Difficulty<select name="diff" id="dsel">${Object.keys(P.diff).map(k=>`<option${k===q.diff?' selected':''}>${k}</option>`).join('')}</select></label><label>XP reward<input name="xp" id="xpi" type="number" min="1" max="1000" value="${q.xp}"></label></div>
+  <label>Due date (optional)<input name="due" type="date" value="${q.due||''}"></label>`,
+  fd=>{const title=fd.get('title').trim(),xp=parseInt(fd.get('xp'),10);if(!title)return'Give the quest a title.';if(!(xp>=1&&xp<=1000))return'XP must be between 1 and 1000.';
+    const l=String(fd.get('link')||'');let qt='',qn='';if(l[0]==='n'){const f=lookup(l.slice(2));if(f){qn=f.n.id;qt=f.t.id}}else if(l[0]==='t')qt=l.slice(2);
+    change(()=>{const d={title,desc:fd.get('desc').trim(),tid:qt,nid:qn,diff:fd.get('diff'),xp,due:fd.get('due')||''};if(id)Object.assign(S.quests.find(x=>x.id===id),d);else S.quests.push({id:uid(),done:false,...d})})});
+  $('dsel').onchange=e=>{$('xpi').value=P.diff[e.target.value]}}
+function treeName(t){modal(t?'Rename tree':'New skill tree',`<label>Name<input name="name" maxlength="40" required value="${esc(t?t.name:'')}"></label>`,fd=>{const v=fd.get('name').trim();if(!v)return'Give the tree a name.';
+  change(()=>{if(t)t.name=v;else{const x={id:uid(),name:v,nodes:[]};S.trees.push(x);tid=x.id;nid=null;view='trees'}})})}
+
+/* ---- First run: ask for the first skill tree ---- */
+function welcome(){modal('Welcome to Life DLC',`<p class="sub">A skill tree groups the things you are learning. Start with one and add more any time.</p><label>What do you want to level up first?<input name="name" maxlength="40" required placeholder="e.g. Homelab, Guitar, Woodworking"></label><label>First skill in it (optional)<input name="skill" maxlength="60" placeholder="e.g. Linux basics"></label>`,fd=>{const name=fd.get('name').trim();if(!name)return'Give your first skill tree a name.';const sk=fd.get('skill').trim();
+  change(()=>{const t={id:uid(),name,nodes:[]};if(sk)t.nodes.push({id:uid(),name:sk,desc:'',xp:30,req:[],mode:'all',done:false});S.trees.push(t);tid=t.id;nid=null;view='trees'})},'Create tree')}
+
+/* ---- Actions ---- */
+const act={
+  nav:d=>{view=d.id;render()},close:()=>dlg.close(),
+  open:d=>{view='trees';tid=d.id;nid=null;render()},
+  gonode:d=>{const f=lookup(d.id);if(f){view='trees';tid=f.t.id;nid=f.n.id;render()}},
+  tab:d=>{tid=d.id;nid=null;render()},node:d=>{nid=d.id;render()},
+  tnew:()=>treeName(),tren:()=>treeName(cur()),
+  tdel:()=>{const t=cur();ask(`Delete the tree "${esc(t.name)}" and its skills? Linked quests are kept but unlinked.`,()=>change(()=>{S.trees=S.trees.filter(x=>x!==t);S.quests.forEach(q=>{if(q.tid===t.id){q.tid='';q.nid=''}});tid=null;nid=null}))},
+  nnew:()=>nform(cur()),nedit:d=>nform(cur(),d.id),
+  ndel:d=>{const t=cur(),n=t.nodes.find(x=>x.id===d.id);ask(`Delete the skill "${esc(n.name)}"? Linked quests are kept but unlinked.`,()=>change(()=>{t.nodes=t.nodes.filter(x=>x!==n);t.nodes.forEach(x=>x.req=x.req.filter(r=>r!==n.id));S.quests.forEach(q=>{if(q.nid===n.id)q.nid=''});nid=null}))},
+  ntoggle:d=>{const f=lookup(d.id);if(!f)return;const{n,t}=f;
+    if(n.done){if(!t.nodes.some(m=>m.done&&m.req.includes(n.id)))change(()=>{n.done=false;delete n.at})}
+    else if(nstate(t,n)==='available')change(()=>{n.done=true;n.at=Date.now();return`Unlocked ${n.name} · +${n.xp} XP`})},
+  qnew:d=>qform(null,d.nid?{nid:d.nid,tid:(lookup(d.nid)||{t:{}}).t.id}:{}),qedit:d=>qform(d.id),qf:d=>{qf=d.id;render()},
+  qdone:d=>change(()=>{const q=S.quests.find(x=>x.id===d.id);if(!q||q.done)return;q.done=true;q.at=Date.now();let m=`+${q.xp} XP`;
+    const f=q.nid&&lookup(q.nid);if(f&&nstate(f.t,f.n)==='available'&&S.quests.filter(x=>x.nid===q.nid).every(x=>x.done)){f.n.done=true;f.n.at=Date.now();m+=` · Unlocked ${f.n.name} +${f.n.xp}`}return m}),
+  ichk:d=>itm(d.id,i=>{i.done=!i.done}),idel:d=>itm(d.id,(i,n)=>{n.items=n.items.filter(x=>x!==i)}),
+  qre:d=>change(()=>{const q=S.quests.find(x=>x.id===d.id);if(q){q.done=false;delete q.at}}),
+  qdel:d=>ask('Delete this quest? If it was completed, its XP is removed.',()=>change(()=>{S.quests=S.quests.filter(x=>x.id!==d.id)})),
+  backup:()=>{const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([JSON.stringify(S)],{type:'application/json'}));a.download='life-dlc-backup-'+ymd(new Date())+'.json';document.body.appendChild(a);a.click();a.remove();toast('Backup downloaded')},
+  restore:()=>$('imp').click(),
+  reset:()=>ask('Erase all your skill trees, quests and progress and start over?',()=>{S=seed();S.welcomed=true;tid=null;nid=null;view='dash';save();render();welcome()})
+};
+function itm(id,fn){const f=nid&&lookup(nid),i=f&&(f.n.items||[]).find(x=>x.id===id);if(i)change(()=>{fn(i,f.n)})}
+document.addEventListener('submit',e=>{const f=e.target.closest('[data-f]');if(!f)return;e.preventDefault();const v=f.t.value.trim(),l=nid&&lookup(nid);if(!v||!l)return;
+  change(()=>{(l.n.items=l.n.items||[]).push({id:uid(),text:v,done:false})});const i=document.querySelector('[data-f] input');if(i)i.focus()});
+document.addEventListener('click',e=>{const a=e.target.closest('[data-a]');if(a&&!a.disabled&&act[a.dataset.a])act[a.dataset.a](a.dataset)});
+S=load();render();
+if(!S.trees.length&&!S.welcomed){S.welcomed=true;save();welcome()}
+$('imp').onchange=e=>{const f=e.target.files[0];e.target.value='';if(!f)return;const r=new FileReader();r.onload=()=>{try{const d=JSON.parse(r.result);if(!d||!Array.isArray(d.trees)||!Array.isArray(d.quests))throw 0;
+  ask('Replace everything in this app with the backup?',()=>{S=d;S.welcomed=true;tid=null;nid=null;view='dash';save();render();toast('Backup restored')})}catch(x){toast('That file is not a Life DLC backup')}};r.readAsText(f)};
+if('serviceWorker'in navigator)addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}));
+</script></body></html>
